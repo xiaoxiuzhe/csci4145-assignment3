@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+     Selete img: <input id="file-upload" type="file">     
+     <br />
+     Or URL: <input id="url-upload" type="url" >
+     <br />
+     Student ID: <input id="StudentID" type="text">   
+     <br />
+     Nickname: <input id="nickName" type="text">   
+     <br />
+     <button onclick="addUser()">Submit user</button>
+
+     <hr>
+     <H1>Users</H1>
+     <H5>(Click to delete)</H5>
+     <div id="users">
+     </div>
+
+</body>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="js/upload.js"></script>
+<script src="js/list.js"></script>
+<script src="js/delete.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAgDIpMAIwzwrjycBYmoosAQOUeG6WWIOs",
+    authDomain: "csci4145-assignment3.firebaseapp.com",
+    databaseURL: "https://csci4145-assignment3.firebaseio.com",
+    projectId: "csci4145-assignment3",
+    storageBucket: "csci4145-assignment3.appspot.com",
+    messagingSenderId: "1062433217138"
+  };
+  firebase.initializeApp(config);
+//  firebase.database.enableLogging(function(message) {
+//	  console.log("[FIREBASE]", message);
+//	});
+</script>
+</html>
