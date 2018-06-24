@@ -16,6 +16,10 @@ var firebaseconfig = {
 	    messagingSenderId: "1062433217138"
 	  };
 	  firebase.initializeApp(firebaseconfig);
+	  //log database activities
+	  firebase.database.enableLogging(function(message) {
+		  console.log("[FIREBASE]", message);
+		});
 	  
 //cloudinary config
 cloudinary.config({ 
@@ -32,7 +36,7 @@ var server = http.createServer(function(request, response){
 	//answer preflight request
 	//cited from https://gist.github.com/nilcolor/816580
 	if (request.method === "OPTIONS") {
-	      console.log('!OPTIONS');
+//	      console.log('!OPTIONS');
 	      var headers = {};
 	      // IE8 does not allow domains to be specified, just the *
 	      // headers["Access-Control-Allow-Origin"] = req.headers.origin;
@@ -72,7 +76,7 @@ var server = http.createServer(function(request, response){
         		var student_id = pieces[1];
         		var nickName = pieces[2];
         		
-        		console.log(student_id);
+//        		console.log(student_id);
         		
         		//remover user in firebase
         		var query = firebase.database().ref("users").orderByKey();

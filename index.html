@@ -39,8 +39,9 @@
     messagingSenderId: "1062433217138"
   };
   firebase.initializeApp(config);
-//  firebase.database.enableLogging(function(message) {
-//	  console.log("[FIREBASE]", message);
-//	});
+  //log database activities
+  firebase.database.enableLogging(function(message) {
+	  console.log("[FIREBASE]", message);
+	});
 </script>
 </html>

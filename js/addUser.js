@@ -6,7 +6,7 @@ function addUser(){
     var id = document.getElementById("StudentID").value;
     var nickname = document.getElementById("nickName").value;
     
-    console.log(id + " " + nickname);
+//    console.log(id + " " + nickname);
     
     if(file == null || id == "" || nickname == ""){
         alert("Please fill out all information ");

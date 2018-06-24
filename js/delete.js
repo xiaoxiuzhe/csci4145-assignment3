@@ -18,7 +18,7 @@ for (i = 0; i < usercontainer.length; i++) {
 //		console.log(img_id)
 		pieces =  id.split(": ");
 		student_id = pieces[pieces.length-1].split(".")[0];
-		console.log(student_id)
+//		console.log(student_id)
 		pieces =  name.split(": ");
 		nickName = pieces[pieces.length-1].split(".")[0];
 //		console.log(nickName)
