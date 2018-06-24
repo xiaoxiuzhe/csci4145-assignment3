@@ -1,5 +1,5 @@
 {
-  "name": "csci4145assignment2",
+  "name": "csci4145assignment3",
   "version": "1.0.0",
   "description": "Created with [Nodeclipse](https://github.com/Nodeclipse/nodeclipse-1)\r  ([Eclipse Marketplace](http://marketplace.eclipse.org/content/nodeclipse), [site](http://www.nodeclipse.org))",
   "main": "server.js",
@@ -7,9 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "shanw",
+  "author": "shawn",
   "license": "ISC",
   "dependencies": {
+    "firebase": "",
+    "form-data": "",
     "cloudinary": "^1.11.0"
   }
 }

@@ -5,6 +5,8 @@ $('document').ready(function(){
 	var messageListRef = firebase.database().ref("users");
 	messageListRef.once('value', function(snapshot) {
 		  snapshot.forEach(function(childSnapshot) {
+			
+			//create a container in the home page that will display users' info
 			var StudentID = childSnapshot.child("StudentID").val();
 		    var Nickname = childSnapshot.child("Nickname").val();
 		    var img = childSnapshot.child("img").val();
@@ -20,13 +22,15 @@ $('document').ready(function(){
     		pic.src = output;
     		pic.className = "userimg";
     		
-    		var ID = document.createElement("P");                       // Create a <p> element
-    		var t1 = document.createTextNode("StudentID: " + StudentID);      // Create a text node
-    		ID.appendChild(t1);                                          // Append the text to <p>
+    		var ID = document.createElement("P");                      
+    		var t1 = document.createTextNode("StudentID: " + StudentID);      
+    		ID.appendChild(t1);                                        
+    		ID.className = "id";
     		
-    		var name = document.createElement("P");                       // Create a <p> element
-    		var t2 = document.createTextNode("Nickname: " + Nickname);      // Create a text node
-    		name.appendChild(t2);                                          // Append the text to <p>
+    		var name = document.createElement("P");                     
+    		var t2 = document.createTextNode("Nickname: " + Nickname);    
+    		name.appendChild(t2);                                         
+    		name.className = "name";
     		
     		userContainer.appendChild(pic);
     		userContainer.appendChild(ID);

@@ -4,16 +4,30 @@
 var http = require("http");
 var cloudinary = require('cloudinary');
 var qs = require('querystring');
+var firebase = require('firebase');
 
+//firebase config
+var firebaseconfig = {
+	    apiKey: "AIzaSyAgDIpMAIwzwrjycBYmoosAQOUeG6WWIOs",
+	    authDomain: "csci4145-assignment3.firebaseapp.com",
+	    databaseURL: "https://csci4145-assignment3.firebaseio.com",
+	    projectId: "csci4145-assignment3",
+	    storageBucket: "csci4145-assignment3.appspot.com",
+	    messagingSenderId: "1062433217138"
+	  };
+	  firebase.initializeApp(firebaseconfig);
+	  
+//cloudinary config
 cloudinary.config({ 
 	  cloud_name: 'shawnx', 
 	  api_key: '171542994931613', 
 	  api_secret: 'BLbxRKPLq1lrmYgKst2pvO_RBmI' 
 	});
 
+//start the server 
 var server = http.createServer(function(request, response){
 	
-	console.log(request.method);
+//	console.log(request.method);
 	
 	//answer preflight request
 	//cited from https://gist.github.com/nilcolor/816580
@@ -31,22 +45,10 @@ var server = http.createServer(function(request, response){
 	      response.end();
 	}
 	
-	//answer get request
-	if(request.method == "GET"){
-		cloudinary.v2.api.resources(function(error, result){
-			for(var i = 0; i < result.resources.length; i++) {
-				var obj = result.resources[i];
-			    console.log(obj.url);
-			}
-//			console.log(result);
-			response.writeHead(200,{"Content-Type":"text/json;"});
-			response.write(JSON.stringify(result));
-			response.end();
-			});
-	}
 
-	//answer get request
+	//answer DELETE request
 	if(request.method == "DELETE"){
+		
 		
 		//parse request.body
 		//cited from https://stackoverflow.com/questions/4295782/how-do-you-extract-post-data-in-node-js
@@ -62,16 +64,39 @@ var server = http.createServer(function(request, response){
         });
         
         request.on('end', function () {
-            var DELETE = qs.parse(body);
-            for (var key in DELETE) {
-            	cloudinary.v2.api.delete_resources([key],
-            		    function(error, result){console.log(result);});
-            	console.log(key + "deleted");
+            var data = qs.parse(body);
+//            console.log(data);
+            for (var key in data) {
+        		var pieces =  key.split("#");
+        		var img_id = pieces[0];
+        		var student_id = pieces[1];
+        		var nickName = pieces[2];
+        		
+        		console.log(student_id);
+        		
+        		//remover user in firebase
+        		var query = firebase.database().ref("users").orderByKey();
+        		query.once("value")
+        		  .then(function(snapshot) {
+        		    snapshot.forEach(function(childSnapshot) {
+        		      if(childSnapshot.val().StudentID == student_id){
+        		    	  var ref = firebase.database().ref("users").child(childSnapshot.key);
+        		    	  ref.remove();
+        		      }
+        		  });
+        		});
+        		
+        		//remove user img in cloudinary
+            	cloudinary.v2.api.delete_resources([img_id],
+            		    function(error, result){
+//            		console.log(result);
+            		});
+            	
     			response.writeHead(200,{"Content-Type":"text/json;"});
     			response.end();
-            }
+        	}
+
         });
 	}
 	
 }).listen(8888);
-

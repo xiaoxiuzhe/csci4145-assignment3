@@ -1,31 +1,46 @@
 
 var usercontainer = document.getElementsByClassName('usercontainer');
 
-//when clicked on user images, it will delete the user
+//when clicked on user container, it will delete the user
 for (i = 0; i < usercontainer.length; i++) {
-	usercontainer[i].addEventListener('click', function(event){
-		var url = event.target;
-		console.log(url);
+	usercontainer[i].addEventListener('click', function(e){
+		  if (e.target !== this)
+			    return;
+		var img = e.target.querySelector('.userimg').src;
+		var id = e.target.querySelector('.id').innerHTML;
+		var name = e.target.querySelector('.name').innerHTML;
+//		console.log(img);
+//		console.log(id);
+//		console.log(name);
 		
-//		var pieces =  url.split("/");
-//		var img_id = pieces[pieces.length-1].split(".")[0];
+		var pieces =  img.split("/");
+		var img_id = pieces[pieces.length-1].split(".")[0];
 //		console.log(img_id)
-//		
-//		var formData = new FormData();
-//		formData.append('img_id', img_id);
-//		
-//		var xhr = new XMLHttpRequest();
-//		
-//	    xhr.open('DELETE', "http://localhost:8888/", true);
-//	    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-//	    xhr.send(img_id);
-//	    
-//	    xhr.onreadystatechange = function(e) {
-//	        if (xhr.readyState == 4 && xhr.status == 200) {
-//	        		alert("Image deleted, please refresh the page");
-//	        		load_js();
-//	            }
-//	        };
+		pieces =  id.split(": ");
+		student_id = pieces[pieces.length-1].split(".")[0];
+		console.log(student_id)
+		pieces =  name.split(": ");
+		nickName = pieces[pieces.length-1].split(".")[0];
+//		console.log(nickName)
+		
+		var formData = new FormData();
+		formData.append('img_id', img_id);
+		formData.append('student_id', student_id);
+		formData.append('nickName', nickName);
+		
+		var xhr = new XMLHttpRequest();
+		
+	    xhr.open('DELETE', "http://localhost:8888/", true);
+	    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	    xhr.setRequestHeader('Content-Type','multipart/form-data; boundary=----7dd322351017c');
+	    xhr.send(img_id + "#" + student_id +"#" + nickName);
+
+	    xhr.onreadystatechange = function(e) {
+	        if (xhr.readyState == 4 && xhr.status == 200) {
+	        		alert("Image deleted, please refresh the page");
+	        		load_js();
+	            }
+	        };
 //	        
 	});
 }

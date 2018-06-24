@@ -1,11 +1,9 @@
 @CHARSET "UTF-8";
 
 
-.userimg:hover {
-	cursor: pointer;
-}
 
 .usercontainer {
 	float:left;
 	margin: 40px 40px; 
+	cursor: pointer;
 }
